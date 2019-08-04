@@ -1,12 +1,21 @@
-from alpine as builder
+from golang:alpine as builder
 
-ADD  https://github.com/gohugoio/hugo/releases/download/v0.56.3/hugo_0.56.3_Linux-64bit.tar.gz /hugo.tar.gz
-RUN tar -xvf hugo.tar.gz -C / && \
-    ls -lth /
+RUN apk add --no-cache git build-base 
+ENV GO111MODULE on
+
+RUN mkdir -p /go/src/github.com/gohugoio && \
+    cd /go/src/github.com/gohugoio && \
+    git clone https://github.com/gohugoio/hugo.git && \
+    cd hugo && \
+    go install -v -ldflags '-s -w' -tags extended
+
+RUN ls -lth /go/bin
+
+RUN ldd /go/bin/hugo
 
 from scratch
 
-COPY --from=builder /hugo /hugo
+COPY --from=builder /go/bin/hugo /hugo
 
 WORKDIR /code
 CMD ["/hugo"]
