@@ -1,13 +1,14 @@
 from golang:alpine as builder
 
-RUN apk add --no-cache git build-base 
+RUN apk add --no-cache git build-base glibc-static libstdc++-static
 ENV GO111MODULE on
+ENV CGO_ENABLED 0 
 
 RUN mkdir -p /go/src/github.com/gohugoio && \
     cd /go/src/github.com/gohugoio && \
     git clone https://github.com/gohugoio/hugo.git && \
     cd hugo && \
-    go install -v -ldflags '-s -w' -tags extended
+    go install -v -ldflags '-extldflags -static -s -w' -tags extended
 
 RUN ls -lth /go/bin
 
