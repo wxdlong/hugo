@@ -1,6 +1,6 @@
 from golang:alpine as builder
 
-RUN apk add --no-cache git build-base glibc-static libstdc++-static
+RUN apk add --no-cache git build-base libstdc++ musl
 ENV GO111MODULE on
 ENV CGO_ENABLED 0 
 
