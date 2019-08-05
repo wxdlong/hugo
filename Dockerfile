@@ -18,4 +18,5 @@ from scratch
 COPY --from=builder /go/bin/hugo /hugo
 
 WORKDIR /code
+EXPOSE 1313
 CMD ["/hugo"]
