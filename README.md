@@ -1,6 +1,13 @@
 ## What
 　　[Hugo](!https://github.com/gohugoio/hugo) GO语言静态博客工具, 这是一个Hugo with extend docker镜像。
 
+## Why
+   small & simple && extends features && used for [github action](https://github.com/wxdlong/hugo-action)
+```bash
+wxdlong@wxdlong:~$ docker images | grep hugo
+wxdlong/hugo  latest  0d9bc2d9c223  5 weeks ago  38.7MB
+```
+
 ## How
 
 1. CD to your hugo content dir
@@ -9,7 +16,8 @@
     /d/code/github/wxdlong.github.io
     ```
 
-2. Generator public resources, Must mount to `/code`.
+2. Generator public resources, Must mount to `/code`. 
+> Docker container Default workdir is `/code`
     ```bash
     $ docker run --rm -v "${PWD}:/code" wxdlong/hugo
     Building sites … WARN 2019/08/05 14:18:11 Page's .Hugo is deprecated and will be removed in a future release. Use the global h ugo function.

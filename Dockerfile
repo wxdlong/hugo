@@ -14,9 +14,12 @@ RUN ls -lth /go/bin
 RUN ldd /go/bin/hugo || echo hello 
 
 from scratch
+LABEL "what"="Build Hugo Page"
+LABEL "why"="small & simple"
+LABEL "homepage"="https:ycat.top"
+LABEL "github"="https://github.com/wxdlong/hugo"
+LABEL "maintainer"="Wxdlong <wxdlong@qq.com>"
 
 COPY --from=builder /go/bin/hugo /hugo
-
 WORKDIR /code
-EXPOSE 1313
-CMD ["/hugo"]
+ENTRYPOINT ["/hugo"]
